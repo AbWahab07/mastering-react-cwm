@@ -4,11 +4,13 @@ const person = {
   // methods
   walk: function() {},
   // ES6 method syntax
-  talk() {}
+  talk() {
+    console.log(this);
+  }
 };
+// when we call method on an object, this referes to the current object
+person.talk(); // logs person object
 
-person.talk();
-// you use bracket notation when you don't know ahead of time
-// what property or mehtod you're going to access.
-const targetMember = "name";
-person[targetMember] = "John";
+const talk = person.talk;
+// when we call a standalone function, this refers to the Window
+talk(); // logs Window or undefined(if strict mode is enabled)
