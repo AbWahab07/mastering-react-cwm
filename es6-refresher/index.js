@@ -1,3 +1,8 @@
-const colors = ["red", "green", "blue"];
-const items = colors.map(color => `<li>${color}</li>`); // arrow function as a callback to map method
-console.log(items); // array of li
+const address = {
+  street: "",
+  city: "",
+  country: ""
+};
+
+const { street } = address; // object destructring
+const { city: ct, country } = address; // Alias use
