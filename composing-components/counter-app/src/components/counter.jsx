@@ -39,6 +39,9 @@ class Counter extends Component {
   // converted into arrow function
   handleIncrement = product => {
     // console.log(product);
+
+    // you can't do this -> update the props inside the component
+    // this.props.value = 0; // will result in error, can't assign read-only property
     this.setState({ value: this.state.value + 1 });
   };
 }
