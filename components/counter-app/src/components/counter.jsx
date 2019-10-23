@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 class Counter extends Component {
   state = {
-    count: 0,
+    count: 1,
     imgURL: "https://picsum.photos/200"
   };
 
@@ -15,7 +15,7 @@ class Counter extends Component {
       <div>
         <img src={this.state.imgURL} alt="" />
         {/* Inline style using property */}
-        <span style={this.styles} className="badge badge-primary m-2">
+        <span style={this.styles} className={this.getBadgeClasses()}>
           {this.formatCount()}
         </span>
 
@@ -25,6 +25,12 @@ class Counter extends Component {
         </button>
       </div>
     );
+  }
+
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-";
+    classes += this.state.count === 0 ? "warning" : "primary";
+    return classes;
   }
 
   formatCount() {
