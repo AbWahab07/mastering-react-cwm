@@ -4,6 +4,12 @@ class Counter extends Component {
     count: 0
   };
 
+  // Old way of binding this
+  // constructor() {
+  //   super();
+  //   this.handleIncrement = this.handleIncrement.bind(this);
+  // }
+
   render() {
     return (
       <div>
@@ -30,9 +36,10 @@ class Counter extends Component {
     return count === 0 ? "Zero" : count;
   }
 
-  handleIncrement() {
-    console.log("Increment Clicked", this); // this is undefined
-  }
+  // converted into arrow function
+  handleIncrement = () => {
+    console.log("Increment Clicked", this); // this is counter object
+  };
 }
 
 export default Counter;
