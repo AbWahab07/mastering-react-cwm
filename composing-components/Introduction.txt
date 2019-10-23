@@ -1,0 +1,5 @@
+In the last section we worked with single components but a real world app have a tree of components. so we'll look at composing components. We'll learn 
+How to Pass data b/w components
+How to raise and handle events
+How to have mulitple components in Sync
+Functional Components and Lifecycle hooks.
