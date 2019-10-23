@@ -38,7 +38,7 @@ class Counter extends Component {
 
   // converted into arrow function
   handleIncrement = () => {
-    console.log("Increment Clicked", this); // this is counter object
+    this.setState({ count: this.state.count + 1 });
   };
 }
 
