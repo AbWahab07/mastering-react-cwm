@@ -14,9 +14,16 @@ class Counters extends Component {
     // console.log(this.props);
     return (
       <div>
+        <button
+          className="btn btn-primary btn-sm m-2"
+          onClick={this.handleReset}
+        >
+          Reset
+        </button>
         {this.state.counters.map(counter => (
           <Counter
             key={counter.id}
+            /** Passing counter object as a props to keep our code maintainable */
             counter={counter}
             onDelete={this.handleDelete}
           />
@@ -30,6 +37,15 @@ class Counters extends Component {
     // console.log("Event Handler called", counterId);
     const counters = this.state.counters.filter(c => c.id !== counterId);
     // this.setState({ counters: counters }); can be written as the line below
+    this.setState({ counters });
+  };
+
+  handleReset = () => {
+    const counters = this.state.counters.map(c => {
+      c.value = 0;
+      return c;
+    });
+    // updates the state but it's updated on the view because we don't have single source of truth
     this.setState({ counters });
   };
 }
