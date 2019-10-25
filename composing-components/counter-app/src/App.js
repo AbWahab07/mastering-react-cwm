@@ -38,7 +38,7 @@ class App extends Component {
     counters[index] = { ...counter }; // cloning the counter object
     counters[index].value++;
     this.setState({ counters });
-    console.log(this.state.counters[index]);
+    // console.log(this.state.counters[index]);
   };
 
   // converted to arrow function to bind 'this'
