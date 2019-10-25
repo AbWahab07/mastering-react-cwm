@@ -25,12 +25,23 @@ class Counters extends Component {
             key={counter.id}
             /** Passing counter object as a props to keep our code maintainable */
             counter={counter}
+            onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
           />
         ))}
       </div>
     );
   }
+
+  handleIncrement = counter => {
+    //console.log(counter);
+    const counters = [...this.state.counters]; // cloning the state counters array
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter }; // cloning the counter object
+    counters[index].value++;
+    this.setState({ counters });
+    console.log(this.state.counters[index]);
+  };
 
   // converted to arrow function to bind 'this'
   handleDelete = counterId => {

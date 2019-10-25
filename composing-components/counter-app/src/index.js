@@ -14,6 +14,8 @@ ReactDOM.render(<Counters />, document.getElementById("root"));
 serviceWorker.unregister();
 
 // Hot Module Replacement
+/*
 if (module.hot) {
   module.hot.accept();
 }
+*/
