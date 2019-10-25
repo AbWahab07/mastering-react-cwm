@@ -11,12 +11,14 @@ class Counter extends Component {
       <div>
         <span className={this.getBadgeClasses()}>{this.formatValue()}</span>
         <button
+          /** Raising increment event */
           onClick={() => this.props.onIncrement(this.props.counter)}
           className="btn btn-secondary btn-sm"
         >
           Increment
         </button>
         <button
+          /** Raising delete event */
           onClick={() => this.props.onDelete(this.props.counter.id)}
           className="btn btn-sm btn-danger m-2"
         >
