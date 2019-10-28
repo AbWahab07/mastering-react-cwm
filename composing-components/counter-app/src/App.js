@@ -37,6 +37,7 @@ class App extends Component {
             counters={this.state.counters}
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
             onDelete={this.handleDelete}
           />
         </main>
@@ -45,13 +46,23 @@ class App extends Component {
   }
 
   handleIncrement = counter => {
-    //console.log(counter);
+    // console.log(counter);
     const counters = [...this.state.counters]; // cloning the state counters array
     const index = counters.indexOf(counter);
     counters[index] = { ...counter }; // cloning the counter object
     counters[index].value++;
     this.setState({ counters });
     // console.log(this.state.counters[index]);
+  };
+
+  handleDecrement = counter => {
+    // console.log(counter);
+    const counters = [...this.state.counters]; // cloning the state counters array
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter }; // cloning the counter object
+    counters[index].value--;
+    this.setState({ counters });
+    console.log(this.state.counters[index]);
   };
 
   // converted to arrow function to bind 'this'
