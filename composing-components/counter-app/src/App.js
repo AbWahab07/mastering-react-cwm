@@ -4,6 +4,17 @@ import "./App.css";
 import Counters from "./components/counters";
 
 class App extends Component {
+  constructor() {
+    super();
+    console.log("App - Constructor");
+  }
+
+  componentDidMount() {
+    // Ajax call
+    // this.setState()
+    console.log("App - Mounted");
+  }
+
   state = {
     counters: [
       { id: 1, value: 4 }, // value isn't being passed to the counter component
@@ -14,6 +25,8 @@ class App extends Component {
   };
 
   render() {
+    console.log("App - Rendered");
+
     return (
       <React.Fragment>
         <NavBar
