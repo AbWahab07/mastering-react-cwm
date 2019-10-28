@@ -6,6 +6,14 @@ class Counter extends Component {
   //   this.handleIncrement = this.handleIncrement.bind(this);
   // }
 
+  componentDidUpdate(prevProps, PrevState) {
+    console.log(prevProps);
+    console.log(PrevState);
+    if (prevProps.counter.value !== this.props.counter.value) {
+      // Ajax call anf get new data from the server
+    }
+  }
+
   render() {
     return (
       <div>
