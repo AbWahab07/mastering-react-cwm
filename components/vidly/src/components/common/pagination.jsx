@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash"; // optimized version of Underscore
+import PropTypes from "prop-types";
 
 // Input: Total num of items and No. of results on a page
 // Events: onClick(onPageChange)
@@ -32,6 +33,13 @@ const Pagination = props => {
       </ul>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired
 };
 
 export default Pagination;
