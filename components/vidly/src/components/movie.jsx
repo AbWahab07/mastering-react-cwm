@@ -14,7 +14,7 @@ class Movies extends Component {
   };
 
   componentDidMount() {
-    const genres = [{ name: "All Genres" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()]; // added _id to fix the key warning in the console
     this.setState({ movies: getMovies(), genres });
   }
 
@@ -46,12 +46,14 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 }); // will result in re-render
   };
 
+  handleSort = path => {
+    console.log(path);
+  };
   render() {
     return this.renderMovies();
   }
 
   renderMovies() {
-    const { length: count } = this.state.movies;
     const {
       pageSize,
       currentPage,
@@ -84,6 +86,7 @@ class Movies extends Component {
           <MoviesTable
             movies={movies}
             onLike={this.handleLike}
+            onSort={this.handleSort}
             onDelete={this.handleDelete}
           />
           <Pagination
