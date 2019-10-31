@@ -15,6 +15,7 @@ class App extends Component {
       <div>
         <NavBar />
         <div className="content">
+          {/** Defined routes */}
           <Switch>
             <Route path="/products" component={Products} />
             <Route path="/posts" component={Posts} />
