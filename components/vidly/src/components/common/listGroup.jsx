@@ -3,7 +3,7 @@ import React from "react";
 const ListGroup = props => {
   const { items, textProperty, valueProperty } = props;
   return (
-    <ul className="list-group">
+    <ul className="list-group m-2">
       {items.map(item => (
         <li key={item[valueProperty]} className="list-group-item">
           {item[textProperty]}
@@ -11,6 +11,11 @@ const ListGroup = props => {
       ))}
     </ul>
   );
+};
+
+ListGroup.defaultProps = {
+  textProperty: "name",
+  valueProperty: "_id"
 };
 
 export default ListGroup;
