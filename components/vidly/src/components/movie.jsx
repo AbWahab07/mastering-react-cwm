@@ -49,7 +49,7 @@ class Movies extends Component {
   };
 
   handleSort = sortColumn => {
-    // console.log(path);
+    //console.log(path);
     this.setState({ sortColumn });
   };
 
