@@ -5,8 +5,7 @@ import PropTypes from "prop-types";
 // Input: Total num of items and No. of results on a page
 // Events: onClick(onPageChange)
 
-const Pagination = props => {
-  const { itemsCount, pageSize, currentPage, onPageChange } = props;
+const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pagesCount = Math.ceil(itemsCount / pageSize); // converting floating number to an integer
 
   // Edge case: if pageSize is 10

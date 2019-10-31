@@ -6,14 +6,14 @@ import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 // Input: isLiked: boolean
 // Output: onClick
 
-const Like = props => {
+const Like = ({ liked, onClick }) => {
   let classes = faHeartRegular;
-  if (props.liked) classes = faHeart;
+  if (liked) classes = faHeart;
   return (
     <FontAwesomeIcon
       style={{ cursor: "pointer" }}
       icon={classes}
-      onClick={props.onClick}
+      onClick={onClick}
     />
   );
 };
