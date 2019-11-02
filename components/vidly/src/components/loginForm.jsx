@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class LoginForm extends Component {
   state = {
+    // omitting username or passing null as a vlue for username/password will result in error
     account: { username: "", password: "" }
   };
   handleSubmit = e => {
