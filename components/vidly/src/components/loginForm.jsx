@@ -4,15 +4,25 @@ import Input from "./common/input";
 class LoginForm extends Component {
   state = {
     // omitting username or passing null as a vlue for username/password will result in error
-    account: { username: "", password: "" }
+    account: { username: "", password: "" },
+    errors: {}
   };
+
+  // returns an errors object to set errors in the state
+  validate = () => {
+    return { username: "Username is required" };
+  };
+
   handleSubmit = e => {
     e.preventDefault();
 
-    // Call the server
+    const errors = this.validate();
+    this.setState({ errors });
 
-    // const username = document.getElementById('username').value;  you shouldn't access the DOM using document object model
-    const username = this.username.current.value; // accessing username using ref
+    // if there are errors we'll immediately return without calling the server
+    if (errors) return;
+
+    // Call the server
     console.log("Submitted");
   };
 
