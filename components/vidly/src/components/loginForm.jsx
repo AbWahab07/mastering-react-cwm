@@ -48,12 +48,17 @@ class LoginForm extends Component {
   };
 
   validateProperty = ({ name, value }) => {
-    if (name === "username") {
-      if (value.trim() === "") return "Username is required";
-    }
-    if (name === "password") {
-      if (value.trim() === "") return "Password is required";
-    }
+    // using computed property in ES6
+    const obj = { [name]: value };
+
+    // we need to give a sub schema, want to abortEarly
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+
+    //if falsy
+    // if(!error) return null;
+    // return error.details[0].message;
+    return error ? error.details[0].message : null;
   };
 
   handleChange = ({ currentTarget: input }) => {
