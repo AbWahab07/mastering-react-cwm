@@ -1,10 +1,28 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 
 class App extends Component {
   state = {
     posts: []
   };
+
+  // async componentDidMount() {
+  //   // intially pending state > resolved (success) OR rejected(failure)
+  //   const promise = axios.get("http://jsonplaceholder.typicode.com/posts");
+  //   // promise.then()
+  //   // console.log(promise);
+  //   const response = await promise;
+  //   console.log(response);
+  // }
+
+  // refactored
+  async componentDidMount() {
+    const { data: posts } = await axios.get(
+      "http://jsonplaceholder.typicode.com/posts"
+    );
+    this.setState({ posts });
+  }
 
   handleAdd = () => {
     console.log("Add");
