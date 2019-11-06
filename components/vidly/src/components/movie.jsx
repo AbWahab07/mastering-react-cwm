@@ -6,6 +6,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import MoviesTable from "./moviesTable";
+import SearchBox from "./common/searchBox";
 import _ from "lodash";
 class Movies extends Component {
   state = {
@@ -13,6 +14,8 @@ class Movies extends Component {
     genres: [],
     pageSize: 4,
     currentPage: 1,
+    searchQuery: "",
+    selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }
   };
 
@@ -46,7 +49,11 @@ class Movies extends Component {
 
   handleGenreSelect = genre => {
     //console.log(genre);
-    this.setState({ selectedGenre: genre, currentPage: 1 }); // will result in re-render
+    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 }); // will result in re-render
+  };
+
+  handleSearch = query => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
   };
 
   handleSort = sortColumn => {
@@ -59,14 +66,19 @@ class Movies extends Component {
       pageSize,
       currentPage,
       selectedGenre,
+      searchQuery,
       movies: allMovies,
       sortColumn
     } = this.state;
 
-    const filtered =
-      selectedGenre && selectedGenre._id // when selectedGenre and it's id is truthy, only then filter the movies
-        ? allMovies.filter(m => m.genre._id === selectedGenre._id)
-        : allMovies;
+    let filtered = allMovies;
+    if (searchQuery)
+      filtered = allMovies.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    else if (selectedGenre && selectedGenre._id)
+      // when selectedGenre and it's id is truthy, only then filter the movies
+      filtered = allMovies.filter(m => m.genre._id === selectedGenre._id);
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -80,7 +92,7 @@ class Movies extends Component {
   }
 
   renderMovies() {
-    const { pageSize, currentPage, sortColumn } = this.state;
+    const { pageSize, currentPage, searchQuery, sortColumn } = this.state;
 
     if (this.state.movies.length === 0)
       return "There are no movies in the database";
@@ -100,6 +112,7 @@ class Movies extends Component {
             New Movie
           </Link>
           <p className="m-2">Showing {totalCount} movies in the database</p>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
