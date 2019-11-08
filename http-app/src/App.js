@@ -27,12 +27,28 @@ class App extends Component {
     const obj = { title: "a", body: "b" };
     const { data: post } = await axios.post(apiEndpoint, obj);
 
+    // adding
     const posts = [post, ...this.state.posts];
     this.setState({ posts });
   };
 
-  handleUpdate = post => {
-    console.log("Update", post);
+  handleUpdate = async post => {
+    post.title = "Updated";
+
+    // sending the entire post object
+    // const { data } = await axios.put(`${apiEndpoint}/${post.id}`, post);
+
+    await axios.put(`${apiEndpoint}/${post.id}`, post);
+
+    // updating the UI
+    const posts = [...this.state.posts]; // cloned posts array
+    const index = posts.indexOf(post); // finding index of the post in the array
+    posts[index] = { ...post }; // created new object on the given index
+    this.setState({ posts });
+
+    // sending a custom object containing only the properties that should be updated
+    // axios.patch(`${apiEndpoint}/${post.id}`, {title: post.title});
+    // console.log(data);
   };
 
   handleDelete = post => {
