@@ -58,9 +58,20 @@ class App extends Component {
 
     try {
       await axios.delete(`${apiEndpoint}/${post.id}`); // deleted from the server
-      // throw new Error(""); // simulates error behavior
+
+      // await axios.delete(`${apiEndpoint}99999999`); // expected error. Invalid post Id
+      // await axios.delete(`s/${apiEndpoint}/${post.id}`); // unexpected error. Invalid URL
     } catch (error) {
-      alert("Something failed while deleting a post!");
+      //error.request;
+      //error.response;
+
+      if (error.response && error.response.status === 404)
+        alert("This post has already been deleted.");
+      else {
+        console.log("Logging the error", error);
+        alert("An unexpected error occured.");
+      }
+
       this.setState({ posts: originalPosts });
     }
   };
