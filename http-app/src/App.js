@@ -1,25 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+import http from "http";
+import http from "./services/httpService";
 import "./App.css";
-
-// axios.interceptors.response.use(success, error);
-
-// we only want to intercept the error responses
-axios.interceptors.response.use(null, error => {
-  // console.log("Intercepter called");
-
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
-
-  if (!expectedError) {
-    console.log("Logging the error", error);
-    alert("An unexpected error occured.");
-  }
-
-  return Promise.reject(error);
-});
 
 const apiEndpoint = "http://jsonplaceholder.typicode.com/posts";
 class App extends Component {
@@ -27,24 +9,15 @@ class App extends Component {
     posts: []
   };
 
-  // async componentDidMount() {
-  //   // intially pending state > resolved (success) OR rejected(failure)
-  //   const promise = axios.get("http://jsonplaceholder.typicode.com/posts");
-  //   // promise.then()
-  //   // console.log(promise);
-  //   const response = await promise;
-  //   console.log(response);
-  // }
-
   // refactored
   async componentDidMount() {
-    const { data: posts } = await axios.get(apiEndpoint);
+    const { data: posts } = await http.get(apiEndpoint);
     this.setState({ posts });
   }
 
   handleAdd = async () => {
     const obj = { title: "a", body: "b" };
-    const { data: post } = await axios.post(apiEndpoint, obj);
+    const { data: post } = await http.post(apiEndpoint, obj);
 
     // adding
     const posts = [post, ...this.state.posts];
@@ -54,20 +27,13 @@ class App extends Component {
   handleUpdate = async post => {
     post.title = "Updated";
 
-    // sending the entire post object
-    // const { data } = await axios.put(`${apiEndpoint}/${post.id}`, post);
-
-    await axios.put(`${apiEndpoint}/${post.id}`, post);
+    await http.put(`${apiEndpoint}/${post.id}`, post);
 
     // updating the UI
     const posts = [...this.state.posts]; // cloned posts array
     const index = posts.indexOf(post); // finding index of the post in the array
     posts[index] = { ...post }; // created new object on the given index
     this.setState({ posts });
-
-    // sending a custom object containing only the properties that should be updated
-    // axios.patch(`${apiEndpoint}/${post.id}`, {title: post.title});
-    // console.log(data);
   };
 
   handleDelete = async post => {
@@ -76,9 +42,7 @@ class App extends Component {
     this.setState({ posts });
 
     try {
-      await axios.delete(`${apiEndpoint}/${post.id}`);
-      // await axios.delete(`${apiEndpoint}/`); expected error
-      // await axios.delete(`s/${apiEndpoint}/${post.id}`); // unexpected error
+      await http.delete(`${apiEndpoint}/${post.id}`);
     } catch (error) {
       if (error.response && error.response.status === 404)
         alert("This post has already been deleted.");
