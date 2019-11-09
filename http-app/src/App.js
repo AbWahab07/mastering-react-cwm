@@ -2,6 +2,25 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 
+// axios.interceptors.response.use(success, error);
+
+// we only want to intercept the error responses
+axios.interceptors.response.use(null, error => {
+  // console.log("Intercepter called");
+
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.status < 500;
+
+  if (!expectedError) {
+    console.log("Logging the error", error);
+    alert("An unexpected error occured.");
+  }
+
+  return Promise.reject(error);
+});
+
 const apiEndpoint = "http://jsonplaceholder.typicode.com/posts";
 class App extends Component {
   state = {
@@ -57,21 +76,12 @@ class App extends Component {
     this.setState({ posts });
 
     try {
-      await axios.delete(`${apiEndpoint}/${post.id}`); // deleted from the server
-
-      // await axios.delete(`${apiEndpoint}99999999`); // expected error. Invalid post Id
-      // await axios.delete(`s/${apiEndpoint}/${post.id}`); // unexpected error. Invalid URL
+      await axios.delete(`${apiEndpoint}/${post.id}`);
+      // await axios.delete(`${apiEndpoint}/`); expected error
+      // await axios.delete(`s/${apiEndpoint}/${post.id}`); // unexpected error
     } catch (error) {
-      //error.request;
-      //error.response;
-
       if (error.response && error.response.status === 404)
         alert("This post has already been deleted.");
-      else {
-        console.log("Logging the error", error);
-        alert("An unexpected error occured.");
-      }
-
       this.setState({ posts: originalPosts });
     }
   };
