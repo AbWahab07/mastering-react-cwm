@@ -1,4 +1,4 @@
-import { axios } from "axios";
+import axios from "axios";
 
 axios.interceptors.response.use(null, error => {
   // console.log("Intercepter called");
