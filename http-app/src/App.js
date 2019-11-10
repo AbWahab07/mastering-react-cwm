@@ -2,16 +2,8 @@ import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import http from "./services/httpService";
 import config from "./config.json";
-import * as Sentry from "@sentry/browser";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-
-const RELEASE = "0.1.0";
-
-Sentry.init({
-  dsn: "https://154ec099a58b4465811750ab78cf5cb2@sentry.io/1814672",
-  release: RELEASE
-});
 
 class App extends Component {
   state = {
